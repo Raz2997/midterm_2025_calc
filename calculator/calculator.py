@@ -9,6 +9,22 @@ from commands.history_commands import HistoryCommand, SaveHistoryCommand, ClearH
 command_manager.register("history", HistoryCommand())
 command_manager.register("save", SaveHistoryCommand())
 command_manager.register("clear", ClearHistoryCommand())
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+log_level = os.getenv("LOG_LEVEL", "INFO")
+log_file = os.getenv("LOG_FILE", None)
+env = os.getenv("ENVIRONMENT", "production")
+
+logging.basicConfig(
+    level=getattr(logging, log_level.upper()),
+    format='%(asctime)s - [%(env)s] - %(levelname)s - %(message)s',
+    filename=log_file if log_file else None,
+    filemode='a' if log_file else None
+)
+logger = logging.getLogger(__name__)
+logger.info(f"Initialized logging in {env} environment")
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
