@@ -1,66 +1,32 @@
 import os
-from typing import List, Type
+from commands.command_manager import CommandManager
+from commands.basic_commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
+from commands.menu_command import MenuCommand
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-class Calculation:
-    """Represents a single arithmetic calculation."""
-    def __init__(self, operand1: float, operand2: float, operation: str, result: float):
-        self.operand1 = operand1
-        self.operand2 = operand2
-        self.operation = operation
-        self.result = result
+command_manager = CommandManager()
 
-    def __repr__(self) -> str:
-        return f"{self.operand1:.1f} {self.operation} {self.operand2:.1f} = {self.result:.1f}"
+command_manager.register("add", AddCommand())
+command_manager.register("subtract", SubtractCommand())
+command_manager.register("multiply", MultiplyCommand())
+command_manager.register("divide", DivideCommand())
+command_manager.register("menu", MenuCommand(command_manager))
 
-class Calculations:
-    """Stores a history of calculations."""
-    history: List[Calculation] = []
+def main():
+    logger.info("Starting calculator application")
+    print("Welcome to the Advanced Calculator!")
+    command_manager.execute("menu")
 
-    @classmethod
-    def add_calculation(cls, calculation: Type[Calculation]) -> None:
-        cls.history.append(calculation)
-    
-    @classmethod
-    def get_last_calculation(cls) -> Type[Calculation]:
-        return cls.history[-1] if cls.history else None
-    
-    @classmethod
-    def clear_history(cls) -> None:
-        cls.history.clear()
+    while True:
+        user_input = input("\nEnter command: ").strip().lower()
+        if user_input == "exit":
+            logger.info("Exiting calculator")
+            print("Goodbye!")
+            break
+        command_manager.execute(user_input)
 
-class Calculator:
-    """Performs arithmetic calculations."""
-    @staticmethod
-    def add(a: float, b: float) -> float:
-        result = a + b
-        Calculations.add_calculation(Calculation(a, b, '+', result))
-        logger.info(f"Performed addition: {a} + {b} = {result}")
-        return result
-    
-    @staticmethod
-    def subtract(a: float, b: float) -> float:
-        result = a - b
-        Calculations.add_calculation(Calculation(a, b, '-', result))
-        logger.info(f"Performed subtraction: {a} - {b} = {result}")
-        return result
-    
-    @staticmethod
-    def multiply(a: float, b: float) -> float:
-        result = a * b
-        Calculations.add_calculation(Calculation(a, b, '*', result))
-        logger.info(f"Performed multiplication: {a} * {b} = {result}")
-        return result
-    
-    @staticmethod
-    def divide(a: float, b: float) -> float:
-        if b == 0:
-            logger.error("Attempted division by zero")
-            raise ZeroDivisionError("Cannot divide by zero.")
-        result = a / b
-        Calculations.add_calculation(Calculation(a, b, '/', result))
-        logger.info(f"Performed division: {a} / {b} = {result}")
-        return result
+if __name__ == "__main__":
+    main()
