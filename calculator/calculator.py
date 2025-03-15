@@ -1,4 +1,6 @@
+import sys
 import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from commands.command_manager import CommandManager
 from commands.basic_commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from commands.menu_command import MenuCommand
@@ -10,7 +12,7 @@ command_manager.register("history", HistoryCommand())
 command_manager.register("save", SaveHistoryCommand())
 command_manager.register("clear", ClearHistoryCommand())
 from dotenv import load_dotenv
-import os
+
 
 load_dotenv()
 log_level = os.getenv("LOG_LEVEL", "INFO")
