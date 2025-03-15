@@ -1,4 +1,18 @@
 import logging
+from calculator.strategy import AddStrategy
+
+class AddCommand:
+    def __init__(self):
+        self.strategy = AddStrategy()
+
+    def execute(self):
+        try:
+            a, b = map(float, input("Enter two numbers: ").split())
+            result = self.strategy.execute(a, b)
+            logger.info(f"Result: {result}")
+            print(f"Result: {result}")
+        except ValueError:
+            logger.error("Invalid input")
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
