@@ -3,6 +3,8 @@ from commands.command_manager import CommandManager
 from commands.basic_commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from commands.menu_command import MenuCommand
 import logging
+from commands.plugin_loader import PluginLoader
+PluginLoader.load_plugins(command_manager)
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
