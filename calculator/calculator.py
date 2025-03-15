@@ -5,6 +5,10 @@ from commands.menu_command import MenuCommand
 import logging
 from commands.plugin_loader import PluginLoader
 PluginLoader.load_plugins(command_manager)
+from commands.history_commands import HistoryCommand, SaveHistoryCommand, ClearHistoryCommand
+command_manager.register("history", HistoryCommand())
+command_manager.register("save", SaveHistoryCommand())
+command_manager.register("clear", ClearHistoryCommand())
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
