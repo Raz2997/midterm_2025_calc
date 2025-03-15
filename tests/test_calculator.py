@@ -3,6 +3,24 @@ from commands.command_manager import CommandManager
 from commands.basic_commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from commands.menu_command import MenuCommand
 from calculator.calculator import Calculator, Calculations
+from calculator.history_facade import HistoryFacade
+
+@pytest.fixture
+def calc():
+    return Calculator()
+
+def test_add(calc):
+    assert calc.add(2, 3) == 5
+
+def test_history_save_load():
+    facade = HistoryFacade()
+    facade.add_calculation(Calculation(1, 2, "+", 3))
+    facade.save_history("test_history.csv")
+    facade.clear_history()
+    facade.load_history("test_history.csv")
+    assert not facade.get_history().empty
+
+# Add more tests for plugins, commands, etc.
 
 @pytest.fixture
 def setup_commands():
