@@ -1,6 +1,6 @@
 # Advanced Python Calculator
 
-This project is a midterm submission for a Software Engineering Graduate Course, demonstrating professional software development practices through a Python-based calculator application. It features a command-line REPL, a plugin system, Pandas-based history management, advanced logging, and the application of design patterns for scalability and maintainability.
+This project demonstrates professional software development practices through a Python-based calculator application. It features a command-line REPL, a plugin system, Pandas-based history management, advanced logging, and the application of design patterns for scalability and maintainability.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
