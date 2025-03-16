@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 class AddCommand:
     def __init__(self):
-        from calculator.strategy import AddStrategy  # Import here
+        from calculator.strategy import AddStrategy  # Import inside __init__ to avoid circularity
         self.strategy = AddStrategy()
 
     def execute(self):
@@ -19,7 +19,7 @@ class AddCommand:
 
 class SubtractCommand:
     def __init__(self):
-        from calculator.strategy import SubtractStrategy  # Import here
+        from calculator.strategy import SubtractStrategy  # Import inside __init__ to avoid circularity
         self.strategy = SubtractStrategy()
 
     def execute(self):
